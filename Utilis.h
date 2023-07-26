@@ -7,6 +7,8 @@
 
 #include "Node.h"
 
+int strToInt();
+
 Node *josephus(Node **linkedList, int n, int k, int start = 0);
 
 #endif //UNTITLED_UTILIS_H
