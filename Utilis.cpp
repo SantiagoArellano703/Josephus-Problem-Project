@@ -35,3 +35,11 @@ Node *josephus(Node **linkedList, int n, int k, bool backwards, int start) {
 
   return josephus(linkedList, n - 1, k, backwards, position);
 }
+
+int solveJosephus(int n, int k){
+  if(n==1){
+    return 1;
+  }else{
+    return ((solveJosephus(n-1, k) + k) % n+1);
+  }
+}

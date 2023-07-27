@@ -141,7 +141,7 @@ void Node::removeBackwards(Node **linkedList, int position) {
 void Node::display(struct Node *start) {
   struct Node *temp = start;
 
-  cout << "\nRecorrer hacia adelante\n" << endl;
+  cout << "\nLista: " << endl;
   while (temp->next != start) {
     cout << temp->data << " ";
     temp = temp->next;
