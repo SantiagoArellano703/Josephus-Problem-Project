@@ -63,12 +63,6 @@ manera
 ./compile.sh
 ```
 
-3. Una vez compilado con éxito, puedes ejecutar el programa simplemente escribiendo:
-
-```
-./josephus
-```
-
-4. Sigue las instrucciones proporcionadas por el programa para interactuar con él y resolver el problema de Josephus.
+3. Sigue las instrucciones proporcionadas por el programa para interactuar con él y resolver el problema de Josephus.
 
 ---
