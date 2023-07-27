@@ -14,13 +14,13 @@ public:
 
     Node();
 
-    static void push(Node **start, int data);
-
-    static void remove(Node **linkedList, int position);
-
     static void display(Node *start);
 
-    static void removeBackwards(Node **linkedList, int position);
+    static Node *createDCLL(int n);
+
+    static int josephus(Node *head, int k);
+
+    static int josephusReverse(Node *head, int k);
 };
 
 
