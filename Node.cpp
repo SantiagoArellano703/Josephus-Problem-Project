@@ -34,26 +34,20 @@ Node *Node::createDCLL(int n) {
   return head;
 }
 
-//void display(Node *head) {
-//  Node *ptr = head;
-//  do {
-//    printf("%d-> ", ptr->data);
-//    ptr = ptr->next;
-//  } while (ptr != head);
-//  printf("\b\b\b  \n");
-//}
-
 int Node::josephus(Node *head, int k) {
-  Node::display(head);
   Node *ptr = head;
-  if (ptr->next == head)
+  if (ptr->next == head) {
+    Node::display(head, 0);
     return ptr->data;
+  }
 
   Node *todel = ptr, *todel_prev = todel->prev;
   for (int i = 0; i < k; i++) {
     todel_prev = todel;
     todel = todel->next;
   }
+  Node::display(head, todel->data);
+
   Node *new_head = todel->next;
   new_head->prev = todel_prev;
   todel_prev->next = new_head;
@@ -63,10 +57,11 @@ int Node::josephus(Node *head, int k) {
 }
 
 int Node::josephusReverse(Node *head, int k) {
-  Node::display(head);
   Node *ptr = head;
-  if (ptr->next == head)
+  if (ptr->next == head) {
+    Node::display(head, 0);
     return ptr->data;
+  }
 
   Node *todel = ptr;
   Node *todel_next = todel->next;
@@ -74,6 +69,8 @@ int Node::josephusReverse(Node *head, int k) {
     todel_next = todel;
     todel = todel->prev; // Moverse hacia atrás en la lista
   }
+
+  Node::display(head, todel->data);
 
   Node *new_head = todel->prev;
   new_head->next = todel_next;
@@ -84,13 +81,19 @@ int Node::josephusReverse(Node *head, int k) {
   return josephusReverse(new_head, k);
 }
 
-void Node::display(struct Node *start) {
+void Node::display(Node *start, int deleted) {
   struct Node *temp = start;
 
   cout << "\nLista: " << endl;
   while (temp->next != start) {
-    cout << temp->data << " ";
+    if (temp->data == deleted)
+      cout << "\033[31m" << temp->data << "\033[0m" << "-";
+    else
+      cout << temp->data << "-";
     temp = temp->next;
   }
-  cout << temp->data << endl;
+  if (temp->data == deleted)
+    cout << "\033[31m" << temp->data << "\033[0m";
+  else
+    cout << temp->data << endl;
 }

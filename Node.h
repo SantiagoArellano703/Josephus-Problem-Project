@@ -14,7 +14,7 @@ public:
 
     Node();
 
-    static void display(Node *start);
+    static void display(Node *start, int deleted);
 
     static Node *createDCLL(int n);
 
