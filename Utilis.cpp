@@ -26,3 +26,9 @@ int solveJosephus(int n, int k) {
     return ((solveJosephus(n - 1, k) + k) % n + 1);
   }
 }
+
+int solveJosephusReverse(int n, int k){
+  int solution = solveJosephus(n, k);
+  int solutionReverse = (n-solution+2)%n;
+  return solutionReverse;
+}

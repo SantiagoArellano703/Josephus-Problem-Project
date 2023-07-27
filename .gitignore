@@ -1,5 +1,4 @@
 .idea/
 cmake-build-debug/
 *.o
-compile.sh
 main
