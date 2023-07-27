@@ -45,7 +45,11 @@ int main() {
 
   cout << "\n-------------------------------------------------" << endl;
   cout << "Observa como se realizó la eliminación " << endl;
-  // josephus(&linked_list, n, k, backward);
+  if (backward) {
+    Node::josephusReverse(linked_list, k);
+  } else {
+    Node::josephus(linked_list, k);
+  }
 
 
   return 0;

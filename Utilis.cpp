@@ -18,3 +18,11 @@ int strToInt() {
 
   return num;
 }
+
+int solveJosephus(int n, int k) {
+  if (n == 1) {
+    return 1;
+  } else {
+    return ((solveJosephus(n - 1, k) + k) % n + 1);
+  }
+}
