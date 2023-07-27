@@ -14,9 +14,13 @@ public:
 
     Node();
 
-    static void push(Node** start, int data);
-    static void remove(Node** linkedList, int position);
+    static void push(Node **start, int data);
+
+    static void remove(Node **linkedList, int position);
+
     static void display(Node *start);
+
+    static void removeBackwards(Node **linkedList, int position);
 };
 
 

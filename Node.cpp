@@ -60,8 +60,6 @@ void Node::remove(Node **linkedList, int position) {
     return;
   }
 
-  cout << current->data << endl;
-
   // Step 4: If more than one node, check if it is the first node
   if (current == *linkedList) {
     previous = (*linkedList)->prev; // Make the previous node because in this case is nullptr
@@ -88,6 +86,57 @@ void Node::remove(Node **linkedList, int position) {
   }
 
 }
+
+void Node::removeBackwards(Node **linkedList, int position) {
+  // Case 1: If linked list is empty
+  if (*linkedList == nullptr) {
+    return;
+  }
+
+  // Case 2: If linked list is not empty
+  // Step 1: Init current node and next node
+  Node *current = *linkedList;
+  Node *nextNode = nullptr;
+
+  // Step 2: Find next node of the node to be deleted
+  for (int i = 0; i < position; ++i) {
+    nextNode = current;
+    current = current->prev; // Move backwards in the list
+  }
+
+  // Step 3: Check if node to be deleted is the only node in the linked list
+  if (current->next == *linkedList && nextNode == nullptr) {
+    *linkedList = nullptr;
+    return;
+  }
+
+  // Step 4: If more than one node, check if it is the first node
+  if (current == *linkedList) {
+    Node *previous = (*linkedList)->prev;
+    nextNode = (*linkedList)->next; // Make the next node because in this case is nullptr
+
+    *linkedList = nextNode;
+    (*linkedList)->prev = previous;
+    previous->next = *linkedList;
+
+    free(current); // Liberating memory
+  } else if (current->next == *linkedList) {
+    // Step 5: If it is the last node
+    nextNode->prev = current->prev;
+    current->prev->next = nextNode;
+
+    free(current); // Liberating memory
+  } else {
+    // Step 6: If it is another node
+    Node *temp = current->prev;
+
+    nextNode->prev = temp;
+    temp->next = nextNode;
+
+    free(current); // Liberating memory
+  }
+}
+
 
 void Node::display(struct Node *start) {
   struct Node *temp = start;
