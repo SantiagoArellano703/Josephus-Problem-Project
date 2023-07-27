@@ -7,8 +7,10 @@
 
 #include "Node.h"
 
-int strToInt();
+int strToInt(bool notOne = false);
+
 int solveJosephus(int n, int k);
+
 int solveJosephusReverse(int n, int k);
 
 #endif //UNTITLED_UTILIS_H

@@ -11,10 +11,10 @@ int main() {
   cout << "El minimo de 'k' es 1, esto significa que el elemento elimina \nal que está a su lado." << endl;
 
 
-  do{
+  do {
     cout << "\nA continuacion coloca los datos con que deseas realizar el problema...";
     cout << "\nIngresa la cantidad de elementos: ";
-    int n = strToInt();
+    int n = strToInt(true);
 
     Node *linked_list = Node::createDCLL(n);
 
@@ -39,12 +39,12 @@ int main() {
     int survivorUser = strToInt();
 
     int survivor;
-    if(!backward){
+    if (!backward) {
       survivor = solveJosephus(n, k);
-    }else{
-      survivor = solveJosephusReverse(n,k);
+    } else {
+      survivor = solveJosephusReverse(n, k);
     }
-    
+
 
     if (survivorUser == survivor) {
       cout << "\nExcelente! La posición que sobrevive es la " << survivor << endl;
@@ -64,11 +64,11 @@ int main() {
       Node::josephus(linked_list, k);
     }
 
-    do{
-      cout<<"\n¿Deseas salir del programa? \n1) Si \n2) No \nIngresa el numero: ";
+    do {
+      cout << "\n¿Deseas salir del programa? \n1) Si \n2) No \nIngresa el numero: ";
       close = strToInt();
-    }while(close<1 || close>2); 
-  }while(close == 2);
-  
+    } while (close < 1 || close > 2);
+  } while (close == 2);
+
   return 0;
 }

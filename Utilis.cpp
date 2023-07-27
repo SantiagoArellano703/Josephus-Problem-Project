@@ -8,9 +8,9 @@
 
 using namespace std;
 
-int strToInt() {
+int strToInt(bool notOne) {
   int num;
-  while (!(cin >> num)) {
+  while (!(cin >> num) || num == 1 && notOne) {
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cout << "Entrada invalida, intente de nuevo: ";
@@ -27,8 +27,8 @@ int solveJosephus(int n, int k) {
   }
 }
 
-int solveJosephusReverse(int n, int k){
+int solveJosephusReverse(int n, int k) {
   int solution = solveJosephus(n, k);
-  int solutionReverse = (n-solution+2)%n;
+  int solutionReverse = (n - solution + 2) % n;
   return solutionReverse;
 }
