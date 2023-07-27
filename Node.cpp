@@ -11,132 +11,78 @@ using namespace std;
 
 Node::Node() = default;
 
+Node *Node::createDCLL(int n) {
+  Node *head = nullptr;
+  Node *ptr = head, *ptr_prev = head;
 
-void Node::push(Node **start, int data) {
-  // Step 1: Create a new node
-  Node *newNode = new Node();
-  newNode->data = data;
-
-  // Step 2: If Linked List is empty, then make the new node as linked list
-  if (*start == nullptr) {
-    newNode->next = newNode;
-    newNode->prev = newNode;
-    *start = newNode;
-    return;
+  for (int i = 0; i < n; i++) {
+    if (i == 0) {
+      head = (Node *) malloc(sizeof(Node));
+      head->data = i + 1;
+      head->next = head->prev = head;
+      ptr_prev = head;
+    } else {
+      ptr = (Node *) malloc(sizeof(Node));
+      ptr->data = i + 1;
+      ptr_prev->next = ptr;
+      ptr->prev = ptr_prev;
+      ptr_prev = ptr;
+    }
   }
-
-  // Step 3: Else find last node
-  Node *last = (*start)->prev;
-
-  // Step 4: Make next and prev of new node
-  newNode->next = *start;
-  newNode->prev = last;
-
-  // Step 5: Change the prev of start and next of last as new node
-  (*start)->prev = newNode;
-  last->next = newNode;
+  ptr->next = head;
+  head->prev = ptr;
+  return head;
 }
 
-void Node::remove(Node **linkedList, int position) {
-  // Case 1: If linked list is empty
-  if (*linkedList == nullptr) {
-    return;
+//void display(Node *head) {
+//  Node *ptr = head;
+//  do {
+//    printf("%d-> ", ptr->data);
+//    ptr = ptr->next;
+//  } while (ptr != head);
+//  printf("\b\b\b  \n");
+//}
+
+int Node::josephus(Node *head, int k) {
+  Node::display(head);
+  Node *ptr = head;
+  if (ptr->next == head)
+    return ptr->data;
+
+  Node *todel = ptr, *todel_prev = todel->prev;
+  for (int i = 0; i < k; i++) {
+    todel_prev = todel;
+    todel = todel->next;
   }
+  Node *new_head = todel->next;
+  new_head->prev = todel_prev;
+  todel_prev->next = new_head;
 
-  // Case 2: If linked list is not empty
-  // Step 1: Init current node and previous node
-  Node *current = *linkedList;
-  Node *previous = nullptr;
-
-  // Step 2: Find previous node of the node to be deleted
-  for (int i = 0; i < position; ++i) {
-    previous = current;
-    current = current->next;
-  }
-
-  // Step 3: Check if node to be deleted is the only node in the linked list
-  if (current->next == *linkedList && previous == nullptr) {
-    *linkedList = nullptr;
-    return;
-  }
-
-  // Step 4: If more than one node, check if it is the first node
-  if (current == *linkedList) {
-    previous = (*linkedList)->prev; // Make the previous node because in this case is nullptr
-
-    *linkedList = (*linkedList)->next;
-    previous->next = *linkedList;
-    (*linkedList)->prev = previous;
-
-    free(current); // Liberating memory
-  } else if (current->next == *linkedList) {
-    // Step 5: If it is the last node
-    previous->next = *linkedList;
-    (*linkedList)->prev = previous;
-
-    free(current); // Liberating memory
-  } else {
-    // Step 6: If it is another node
-    Node *temp = current->next;
-
-    previous->next = temp;
-    temp->prev = previous;
-
-    free(current); // Liberating memory
-  }
-
+  free(todel);
+  return josephus(new_head, k);
 }
 
-void Node::removeBackwards(Node **linkedList, int position) {
-  // Case 1: If linked list is empty
-  if (*linkedList == nullptr) {
-    return;
+int Node::josephusReverse(Node *head, int k) {
+  Node::display(head);
+  Node *ptr = head;
+  if (ptr->next == head)
+    return ptr->data;
+
+  Node *todel = ptr;
+  Node *todel_next = todel->next;
+  for (int i = 0; i < k; i++) {
+    todel_next = todel;
+    todel = todel->prev; // Moverse hacia atrás en la lista
   }
 
-  // Case 2: If linked list is not empty
-  // Step 1: Init current node and next node
-  Node *current = *linkedList;
-  Node *nextNode = nullptr;
+  Node *new_head = todel->prev;
+  new_head->next = todel_next;
+  todel_next->prev = new_head;
 
-  // Step 2: Find next node of the node to be deleted
-  for (int i = 0; i < position; ++i) {
-    nextNode = current;
-    current = current->prev; // Move backwards in the list
-  }
 
-  // Step 3: Check if node to be deleted is the only node in the linked list
-  if (current->next == *linkedList && nextNode == nullptr) {
-    *linkedList = nullptr;
-    return;
-  }
-
-  // Step 4: If more than one node, check if it is the first node
-  if (current == *linkedList) {
-    Node *previous = (*linkedList)->prev;
-    nextNode = (*linkedList)->next; // Make the next node because in this case is nullptr
-
-    *linkedList = nextNode;
-    (*linkedList)->prev = previous;
-    previous->next = *linkedList;
-
-    free(current); // Liberating memory
-  } else if (current->next == *linkedList) {
-    // Step 5: If it is the last node
-    nextNode->prev = current->prev;
-    current->prev->next = nextNode;
-
-    free(current); // Liberating memory
-  } else {
-    // Step 6: If it is another node
-    Node *temp = current->prev;
-
-    nextNode->prev = temp;
-    temp->next = nextNode;
-
-    free(current); // Liberating memory
-  }
+  free(todel);
+  return josephusReverse(new_head, k);
 }
-
 
 void Node::display(struct Node *start) {
   struct Node *temp = start;

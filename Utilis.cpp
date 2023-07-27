@@ -18,20 +18,3 @@ int strToInt() {
 
   return num;
 }
-
-Node *josephus(Node **linkedList, int n, int k, bool backwards, int start) {
-  Node::display(*linkedList);
-
-  if (n == 1)
-    return *linkedList;
-
-  int position = (start + k) % n;
-
-  if (backwards) {
-    Node::removeBackwards(linkedList, position);
-  } else {
-    Node::remove(linkedList, position);
-  }
-
-  return josephus(linkedList, n - 1, k, backwards, position);
-}
