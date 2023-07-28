@@ -37,7 +37,6 @@ Node *Node::createDCLL(int n) {
 int Node::josephus(Node *head, int k) {
   Node *ptr = head;
   if (ptr->next == head) {
-    cout<<endl;
     Node::display(head, 0);
     return ptr->data;
   }
@@ -72,7 +71,6 @@ int Node::josephusReverse(Node *head, int k) {
   }
 
   Node::display(head, todel->data);
-  cout<<endl; 
 
   Node *new_head = todel->prev;
   new_head->next = todel_next;
@@ -95,7 +93,7 @@ void Node::display(Node *start, int deleted) {
     temp = temp->next;
   }
   if (temp->data == deleted)
-    cout << "\033[31m" << temp->data << "\033[0m";
+    cout << "\033[31m" << temp->data << "\033[0m" << endl;
   else
     cout << temp->data << endl;
 }
